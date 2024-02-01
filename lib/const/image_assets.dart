@@ -19,4 +19,5 @@ class ImageAssetsUtil {
   static const String logoFull = "${baseDir}logo_full.svg";
   static const String successTransfer = "${baseDir}success_transfer.svg";
   static const String share = "${baseDir}Share.svg";
+  static const String icAdd = "${baseDir}ic_add.svg";
 }

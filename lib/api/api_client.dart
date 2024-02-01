@@ -194,7 +194,7 @@ class ApiClient extends GetxController {
   Response handleResponse(http.Response response, String uri) {
     dynamic _body;
     try {
-      _body = jsonDecode(response.body);
+      _body = (response.bodyBytes.isEmpty)? jsonDecode(response.body) : jsonDecode(utf8.decode(response.bodyBytes));
     }catch(e) {
       if (kDebugMode) {
         print("$uri: $e");
