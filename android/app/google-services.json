@@ -7,47 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:876517671466:android:da458a95527be4818db953",
-        "android_client_info": {
-          "package_name": "com.awesomeproject"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDw5l5tr76FF-TQzGPk8AYrCwXOg9QHGis"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:876517671466:android:8ad5707442a3b6f98db953",
         "android_client_info": {
           "package_name": "com.bkvnpa.car_manager"
-        }
-      },
-      "oauth_client": [],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDw5l5tr76FF-TQzGPk8AYrCwXOg9QHGis"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": []
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:876517671466:android:932f34b676765d3f8db953",
-        "android_client_info": {
-          "package_name": "com.vnpa_bk.carmanager.car_manager"
         }
       },
       "oauth_client": [],

@@ -63,19 +63,19 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyDWz_1_Ls7m6v28Z8qdUzmFm_OrAiB3I08',
-    appId: '1:876517671466:ios:3fdeb10ccacacac48db953',
+    appId: '1:876517671466:ios:0a98bd84eab063768db953',
     messagingSenderId: '876517671466',
     projectId: 'vnpa-bk-car-manager',
     storageBucket: 'vnpa-bk-car-manager.appspot.com',
-    iosBundleId: 'com.bknvpa.carManager',
+    iosBundleId: 'com.vnpabk.carManager',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyDWz_1_Ls7m6v28Z8qdUzmFm_OrAiB3I08',
-    appId: '1:876517671466:ios:c10c349379f7a4ed8db953',
+    appId: '1:876517671466:ios:0a98bd84eab063768db953',
     messagingSenderId: '876517671466',
     projectId: 'vnpa-bk-car-manager',
     storageBucket: 'vnpa-bk-car-manager.appspot.com',
-    iosBundleId: 'com.example.carManager.RunnerTests',
+    iosBundleId: 'com.vnpabk.carManager',
   );
 }
