@@ -2,18 +2,36 @@ import 'package:car_manager/routes/routes.dart';
 import 'package:car_manager/screen/DetailScreen.dart';
 import 'package:car_manager/screen/SplashScreen.dart';
 import 'package:car_manager/screen/VerhicesScreen.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 
 import 'const/fonts.dart';
+import 'firebase_options.dart';
 import 'get_di.dart';
 import 'models/car.dart';
+
+@pragma('vm:entry-point')
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  // If you're going to use other Firebase services in the background, such as Firestore,
+  // make sure you call `initializeApp` before using other Firebase services.
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,);
+  await FirebaseMessaging.instance.subscribeToTopic("noti");
+  await FirebaseMessaging.instance.setAutoInitEnabled(true);
+  listenWebSocket();
+}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await init();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  await FirebaseMessaging.instance.subscribeToTopic("noti");
+  await FirebaseMessaging.instance.setAutoInitEnabled(true);
   runApp(GetMaterialApp(
     home: MyApp(),
   ));

@@ -1,5 +1,6 @@
 import 'package:car_manager/controller/car_controller.dart';
 import 'package:car_manager/widgets/custom_image_button.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
@@ -20,6 +21,7 @@ class VehiclesScreen extends StatefulWidget {
 class _VehiclesScreen extends State<VehiclesScreen> {
   @override
   Widget build(BuildContext context) {
+    requireNotifyPermission();
     return Scaffold(
       body: SafeArea(
         child: Container(
@@ -76,6 +78,18 @@ class _VehiclesScreen extends State<VehiclesScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  requireNotifyPermission() async {
+    await FirebaseMessaging.instance.requestPermission(
+      alert: true,
+      announcement: true,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
     );
   }
 

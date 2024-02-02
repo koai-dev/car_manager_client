@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notification_title">Thông báo</string>
+    <string name="notification_message">Có cập nhật mới từ hệ thống xe bVT</string>
+</resources>

@@ -1,4 +1,3 @@
-import 'package:car_manager/const/image_assets.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class NotificationService {
@@ -6,8 +5,6 @@ class NotificationService {
   FlutterLocalNotificationsPlugin();
 
   Future<void> initNotification() async {
-/* initialise the plugin. chat_icon needs to be a added as a
-       drawable resource to the Android head project */
     AndroidInitializationSettings initializationSettingsAndroid =
     const AndroidInitializationSettings("ic_launcher");
 
@@ -18,8 +15,20 @@ class NotificationService {
         onDidReceiveLocalNotification:
             (int id, String? title, String? body, String? payload) async {});
 
+    const AndroidNotificationChannel channel = AndroidNotificationChannel(
+      'notifyCar', // id
+      'Thông báo', // title
+      description:
+      'This channel is used for important notifications.', // description
+      importance: Importance.max, // importance must be at low or higher level
+    );
+
     var initializationSettings = InitializationSettings(
         android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
+    await notificationsPlugin
+        .resolvePlatformSpecificImplementation<
+        AndroidFlutterLocalNotificationsPlugin>()
+        ?.createNotificationChannel(channel);
     await notificationsPlugin.initialize(initializationSettings,
         onDidReceiveNotificationResponse:
             (NotificationResponse notificationResponse) async {});
@@ -27,7 +36,7 @@ class NotificationService {
 
   notificationDetails() {
     return const NotificationDetails(
-        android: AndroidNotificationDetails('abc123', 'Chat-APP',
+        android: AndroidNotificationDetails('notifyCar', 'Thông báo',
             importance: Importance.max, icon: '@mipmap/ic_launcher'),
         iOS: DarwinNotificationDetails());
   }
@@ -35,6 +44,6 @@ class NotificationService {
   Future showNotification(
       {int id = 0, String? title, String? body, String? payLoad}) async {
     return notificationsPlugin.show(
-        id, title, body, await notificationDetails());
+        id, title, body, await notificationDetails(), payload: payLoad);
   }
 }

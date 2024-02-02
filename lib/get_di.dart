@@ -8,7 +8,6 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 
 import 'api/api_client.dart';
 import 'service/NotificationService.dart';
-import 'package:web_socket_channel/status.dart' as status;
 
 /// dependent injection in flutter (user 'get')
 Future<void> init() async {
@@ -20,27 +19,31 @@ Future<void> init() async {
   Get.lazyPut(() => CarController(carRepo: Get.find()));
 
   Get.lazyPut(() => NotificationService());
+  listenWebSocket();
+}
+
+listenWebSocket() async {
   final wsUrl = Uri.parse(AppConfig.baseWebsocket);
   var channel = WebSocketChannel.connect(wsUrl);
   await channel.ready;
   if (kDebugMode) {
     print("WEBSOCKET CONNECTED!");
   }
+  Get.lazyPut(() => channel);
   channel.stream.listen((message) {
     if (kDebugMode) {
       print("WEBSOCKET $message");
     }
-    Get.snackbar("Thông báo", message);
     if(!Get.find<CarController>().isLoading){
       Get.find<CarController>().getAllCar();
     }
-    // Get.find<NotificationService>()
-    //     .showNotification(title: "Thông báo", body: message);
+    var notificationService = Get.find<NotificationService>();
+    notificationService.showNotification(title: "Thông báo", body: message);
   },onError:  (error) async {
     if (kDebugMode) {
       print("WEBSOCKET $error");
     }
-    channel = WebSocketChannel.connect(wsUrl);
+    channel = WebSocketChannel.connect(Uri.parse(AppConfig.baseWebsocket));
     await channel.ready;
     Get.lazyPut(() => channel);
   },onDone: (){
@@ -48,5 +51,4 @@ Future<void> init() async {
       print("WEBSOCKET DONE");
     }
   });
-  Get.lazyPut(() => channel);
 }
