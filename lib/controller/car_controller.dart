@@ -20,6 +20,7 @@ class CarController extends GetxController implements GetxService {
     response.body.forEach((car) {
       listCar.add(Car.fromJson(car));
     });
+    listCar.sort((car1, car2) => car2.currentStatus == true? 1 : -1);
     isLoading = false;
     update();
   }

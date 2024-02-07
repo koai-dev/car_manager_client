@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:car_manager/routes/routes.dart';
 import 'package:car_manager/screen/DetailScreen.dart';
 import 'package:car_manager/screen/SplashScreen.dart';
@@ -5,10 +7,12 @@ import 'package:car_manager/screen/VerhicesScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:go_router/go_router.dart';
 
 import 'const/fonts.dart';
+import 'controller/car_controller.dart';
 import 'firebase_options.dart';
 import 'get_di.dart';
 import 'models/car.dart';
@@ -32,6 +36,13 @@ void main() async {
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   await FirebaseMessaging.instance.subscribeToTopic("noti");
   await FirebaseMessaging.instance.setAutoInitEnabled(true);
+  FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+   Timer(const Duration(milliseconds: 2000),(){
+     if(!Get.find<CarController>().isLoading){
+       Get.find<CarController>().getAllCar();
+     }
+   });
+  });
   runApp(GetMaterialApp(
     home: MyApp(),
   ));
